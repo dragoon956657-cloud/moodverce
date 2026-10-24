@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0b18">
+<title>MOODVERSE — Your Tiny Universe</title>
+<style>
+:root{--bg:#0b0b18;--panel:#151528;--text:#f7f5ff;--muted:#aaa8c6;--pink:#ff6ac6;--blue:#7c8cff;--mint:#72f5d0;--gold:#ffd479}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 12% 5%,#272052 0,transparent 32%),radial-gradient(circle at 90% 30%,#27143f 0,transparent 30%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh;overflow-x:hidden}
+button,input,textarea{font:inherit}button{cursor:pointer;border:0;color:var(--text);transition:transform .2s,filter .2s}button:hover{filter:brightness(1.12);transform:translateY(-2px)}button:active{transform:scale(.98)}
+.stars{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:-1}.star{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;opacity:.65;animation:twinkle 3s infinite alternate}@keyframes twinkle{to{opacity:.15;transform:scale(.5)}}@keyframes float{50%{transform:translateY(-12px)}}@keyframes pop{0%{transform:scale(.8);opacity:0}100%{transform:scale(1);opacity:1}}
+.wrap{width:min(1100px,92%);margin:auto}.nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}.logo{font-weight:900;letter-spacing:2px;font-size:1.05rem}.logo span{color:var(--pink)}.nav small{color:var(--muted)}
+.hero{text-align:center;padding:48px 0 35px}.pill{display:inline-flex;align-items:center;gap:8px;padding:8px 13px;border:1px solid #ffffff22;border-radius:99px;background:#ffffff08;color:#dcd9ff;font-size:.8rem}.pulse{width:7px;height:7px;background:var(--mint);border-radius:50%;box-shadow:0 0 12px var(--mint)}h1{font-size:clamp(2.6rem,8vw,5.6rem);line-height:.98;letter-spacing:-.06em;margin:22px 0 16px}h1 em{font-style:normal;background:linear-gradient(100deg,var(--pink),#b3a1ff,var(--mint));color:transparent;background-clip:text}.sub{color:var(--muted);max-width:600px;margin:0 auto;line-height:1.7}.hero-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:25px}.primary{background:linear-gradient(100deg,#ff5fbc,#8c79ff);padding:13px 20px;border-radius:14px;font-weight:750;box-shadow:0 8px 30px #b65aff30}.secondary{background:#ffffff0d;border:1px solid #ffffff20;padding:13px 20px;border-radius:14px}
+.orbit-area{height:260px;display:grid;place-items:center;position:relative;margin:8px auto 25px;max-width:600px}.orbit{width:220px;height:220px;border:1px solid #ffffff25;border-radius:50%;position:absolute;animation:spin 24s linear infinite}.orbit:before,.orbit:after{content:"";position:absolute;border:1px solid #ffffff16;border-radius:50%;inset:20px}.orbit:after{inset:-20px}.planet{width:135px;height:135px;border-radius:50%;display:grid;place-items:center;font-size:3.7rem;background:radial-gradient(circle at 30% 25%,#fff6,transparent 25%),linear-gradient(135deg,#ff70c8,#6c6aff 65%,#72f5d0);box-shadow:0 0 70px #a75aff55;animation:float 4s ease-in-out infinite;position:relative}.moon{position:absolute;top:28px;right:calc(50% - 145px);font-size:1.8rem;animation:float 3s infinite}.spark{position:absolute;font-size:1.3rem}.s1{left:15%;top:45px}.s2{right:15%;bottom:40px}@keyframes spin{to{transform:rotate(360deg)}}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:15px;margin:45px 0 18px}.section-head h2{margin:0;font-size:1.6rem;letter-spacing:-.03em}.section-head p{margin:5px 0 0;color:var(--muted);font-size:.9rem}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{border:1px solid #ffffff17;background:linear-gradient(145deg,#ffffff0d,#ffffff04);border-radius:22px;padding:20px;min-height:190px;position:relative;overflow:hidden;transition:border .25s,transform .25s}.card:hover{border-color:#ffffff45;transform:translateY(-4px)}.card .emoji{font-size:2rem}.card h3{margin:13px 0 6px}.card p{color:var(--muted);font-size:.9rem;line-height:1.55;margin:0 0 17px}.card button{background:#ffffff10;border:1px solid #ffffff20;border-radius:11px;padding:9px 12px;font-size:.85rem}.card:after{content:"";position:absolute;width:120px;height:120px;border-radius:50%;background:var(--glow,#ff6ac6);filter:blur(65px);opacity:.14;right:-40px;top:-40px;pointer-events:none}
+.panel{background:#151528bb;border:1px solid #ffffff1b;border-radius:24px;padding:clamp(18px,4vw,30px);margin-top:16px}.panel-top{display:flex;align-items:center;justify-content:space-between;gap:12px}.panel h2{margin:0 0 5px}.panel p{color:var(--muted);line-height:1.6}.tag{font-size:.75rem;color:var(--mint);border:1px solid #72f5d044;padding:6px 9px;border-radius:99px;white-space:nowrap}
+.moods{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin:20px 0}.mood{background:#ffffff08;border:1px solid #ffffff18;border-radius:16px;padding:14px 5px;display:grid;gap:6px;justify-items:center}.mood .memoji{font-size:1.7rem}.mood span:last-child{font-size:.78rem;color:#dedbf4}.mood.active{background:#ff6ac61c;border-color:var(--pink);box-shadow:0 0 22px #ff6ac622}
+.result{display:none;background:linear-gradient(120deg,#ff6ac61a,#7c8cff1a);border:1px solid #ffffff1b;border-radius:18px;padding:18px;animation:pop .3s ease}.result.show{display:block}.result h3{margin:0 0 8px}.result p{margin:0 0 12px}.result .quote{font-size:1.1rem;color:#fff}.result-actions{display:flex;gap:8px;flex-wrap:wrap}.result-actions button{padding:9px 12px;border-radius:10px;background:#ffffff12;border:1px solid #ffffff20}
+.journal{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:15px}textarea{width:100%;min-height:100px;resize:vertical;background:#0d0d1c;border:1px solid #ffffff20;border-radius:14px;padding:13px;color:var(--text);outline:none}textarea:focus{border-color:var(--blue)}.journal button{align-self:start;border-radius:12px;padding:12px 14px;background:linear-gradient(100deg,#7c8cff,#b16cff);font-weight:700}.saved{font-size:.85rem;color:var(--mint);min-height:20px;margin-top:8px}
+footer{text-align:center;color:#8d8aa9;padding:40px 0 25px;font-size:.82rem}.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#f7f5ff;color:#171329;padding:12px 17px;border-radius:13px;font-weight:700;box-shadow:0 12px 35px #0006;transition:.25s;z-index:10;max-width:90%;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.card{min-height:0}.hero{padding-top:30px}.orbit-area{height:220px}.planet{width:115px;height:115px;font-size:3rem}.orbit{width:180px;height:180px}.moon{right:calc(50% - 120px)}.moods{grid-template-columns:repeat(3,1fr)}.section-head{align-items:start;flex-direction:column}.journal{grid-template-columns:1fr}.journal button{justify-self:start}.nav{padding:16px 0}}
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+<div class="wrap">
+<header class="nav"><div class="logo">MOOD<span>VERSE</span> ✦</div><small>Your tiny universe</small></header>
+<main>
+<section class="hero">
+<div class="pill"><span class="pulse"></span> A little space, just for you</div>
+<h1>Your mood.<br><em>Your universe.</em></h1>
+<p class="sub">A tiny interactive universe that turns your mood into a cosmic message. Explore a mini challenge, collect a little positivity, and leave a note for your future self.</p>
+<div class="hero-actions"><button class="primary" onclick="document.getElementById('mood-zone').scrollIntoView({behavior:'smooth'})">Discover my vibe ✨</button><button class="secondary" onclick="dailySurprise()">Surprise me 🎁</button></div>
+<div class="orbit-area" aria-label="Animated planet illustration"><div class="orbit"></div><div class="planet" id="planet">🌎</div><div class="moon">🌙</div><span class="spark s1">✦</span><span class="spark s2">✧</span></div>
+</section>
+
+<section>
+<div class="section-head"><div><h2>Pick your portal</h2><p>Three tiny experiences. One little reset.</p></div></div>
+<div class="grid">
+<article class="card" style="--glow:#ff6ac6"><div class="emoji">🔮</div><h3>Vibe Decoder</h3><p>Choose how you feel and receive a cosmic message made for that mood.</p><button onclick="document.getElementById('mood-zone').scrollIntoView({behavior:'smooth'})">Open portal ↗</button></article>
+<article class="card" style="--glow:#72f5d0"><div class="emoji">⚡</div><h3>60-Second Quest</h3><p>A tiny challenge to refresh your brain. Tap to reveal your mission.</p><button onclick="newQuest()">Reveal my quest ↗</button></article>
+<article class="card" style="--glow:#ffd479"><div class="emoji">📮</div><h3>Time Capsule</h3><p>Write a note to your future self. Save it in this browser on this device.</p><button onclick="document.getElementById('capsule').scrollIntoView({behavior:'smooth'})">Write a note ↗</button></article>
+</div>
+</section>
+
+<section id="mood-zone">
+<div class="section-head"><div><h2>What's your universe like today?</h2><p>No wrong answers. Just pick what feels closest.</p></div></div>
+<div class="panel">
+<div class="panel-top"><div><h2>Vibe Decoder 🔮</h2><p style="margin:4px 0 0">Your mood is a moment, not your whole story.</p></div><span class="tag">01 / EXPLORE</span></div>
+<div class="moods" id="moods">
+<button class="mood" data-mood="happy" onclick="chooseMood(this)"><span class="memoji">😄</span><span>Happy</span></button>
+<button class="mood" data-mood="tired" onclick="chooseMood(this)"><span class="memoji">🥱</span><span>Tired</span></button>
+<button class="mood" data-mood="stressed" onclick="chooseMood(this)"><span class="memoji">😵‍💫</span><span>Stressed</span></button>
+<button class="mood" data-mood="dreamy" onclick="chooseMood(this)"><span class="memoji">🌌</span><span>Dreamy</span></button>
+<button class="mood" data-mood="confident" onclick="chooseMood(this)"><span class="memoji">😎</span><span>Confident</span></button>
+</div>
+<div class="result" id="mood-result" aria-live="polite"><h3 id="result-title"></h3><p class="quote" id="result-quote"></p><p id="result-tip"></p><div class="result-actions"><button onclick="copyMessage()">Copy my message ↗</button><button onclick="resetMood()">Choose another mood</button></div></div>
+</div>
+</section>
+
+<section>
+<div class="section-head"><div><h2>Today's mini quest ⚡</h2><p>Small steps can change the atmosphere.</p></div></div>
+<div class="panel">
+<div class="panel-top"><div><h2 id="quest-title">Your mission is waiting...</h2><p id="quest-text">Reveal a random 60-second quest and give it a try.</p></div><span class="tag">02 / PLAY</span></div>
+<div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:12px"><button class="primary" onclick="newQuest()">Get a quest ✨</button><button class="secondary" onclick="completeQuest()">I did it ✓</button></div>
+<p id="quest-feedback" aria-live="polite" style="margin-bottom:0"></p>
+</div>
+</section>
+
+<section id="capsule">
+<div class="section-head"><div><h2>Message to future you 📮</h2><p>This note stays in this browser using local storage.</p></div></div>
+<div class="panel">
+<div class="panel-top"><div><h2>Dear future me...</h2><p style="margin:4px 0 0">Write a thought, a goal, or something you don't want to forget.</p></div><span class="tag">03 / SAVE</span></div>
+<div class="journal"><textarea id="note" maxlength="700" placeholder="Hey future me, I hope you remember..."></textarea><button onclick="saveNote()">Save capsule 💌</button></div>
+<div class="saved" id="saved-status" aria-live="polite"></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><button class="secondary" onclick="loadNote()">Open saved note</button><button class="secondary" onclick="deleteNote()">Clear note</button></div>
+</div>
+</section>
+</main>
+<footer>Made of stardust, curiosity & tiny steps ✦<br><span style="display:inline-block;margin-top:8px">MOODVERSE · Your universe, your pace.</span></footer>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+const $=id=>document.getElementById(id);
+const starBox=$('stars');
+for(let i=0;i<65;i++){const s=document.createElement('i');s.className='star';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDelay=Math.random()*4+'s';s.style.opacity=(.2+Math.random()*.6);starBox.appendChild(s)}
+const messages={
+ happy:{title:'Your sky is glowing ☀️',quote:'Let the good moment be good. You don’t have to earn every smile.',tip:'Tiny mission: share one kind word with someone, or save this moment in a photo.',planet:'🌞'},
+ tired:{title:'Even stars need a quiet night 🌙',quote:'Rest is not falling behind. It is part of how you keep going.',tip:'Tiny mission: drink some water, stretch your shoulders, and take three slow breaths.',planet:'🌙'},
+ stressed:{title:'One thing at a time 🌊',quote:'You only need to handle the next small step, not the whole universe.',tip:'Tiny mission: name one thing you can control right now, then do just that.',planet:'🪐'},
+ dreamy:{title:'Keep a little wonder ✨',quote:'A small idea today might become a whole new world tomorrow.',tip:'Tiny mission: write down one idea you want to try, even if it sounds impossible.',planet:'🌌'},
+ confident:{title:'Main-character energy 🚀',quote:'You are allowed to take up space and try before you feel completely ready.',tip:'Tiny mission: take one brave step you have been putting off.',planet:'🚀'}
+};
+let selectedMood=null, currentMessage='';
+function chooseMood(btn){document.querySelectorAll('.mood').forEach(b=>b.classList.remove('active'));btn.classList.add('active');selectedMood=btn.dataset.mood;const m=messages[selectedMood];$('result-title').textContent=m.title;$('result-quote').textContent='“'+m.quote+'”';$('result-tip').textContent=m.tip;$('planet').textContent=m.planet;currentMessage=m.quote+' '+m.tip;$('mood-result').classList.add('show')}
+function resetMood(){selectedMood=null;document.querySelectorAll('.mood').forEach(b=>b.classList.remove('active'));$('mood-result').classList.remove('show');$('planet').textContent='🌎'}
+function copyMessage(){if(!currentMessage)return; if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(currentMessage).then(()=>toast('Message copied ✨')).catch(()=>fallbackCopy(currentMessage))}else fallbackCopy(currentMessage)}
+function fallbackCopy(t){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');toast('Message copied ✨')}catch(e){toast('Select and copy the message manually.')}a.remove()}
+const quests=[
+['Reset your orbit','Put your phone down for 60 seconds and take five slow breaths.'],
+['Kindness meteor','Send someone a genuine “hope your day is going well” message.'],
+['Water power-up','Drink a glass of water and give your body a little recharge.'],
+['Tiny tidy-up','Clear one small surface near you for one minute.'],
+['Gratitude spark','Think of three small things that went okay today.'],
+['Move like stardust','Stretch your arms and shoulders or take a short walk.'],
+['Dream seed','Write one thing you want to learn or make this month.'],
+['Music portal','Play one song that changes your mood and listen without scrolling.']
+];let activeQuest=null;
+function newQuest(){let n;do{n=Math.floor(Math.random()*quests.length)}while(quests.length>1&&n===activeQuest);activeQuest=n;$('quest-title').textContent=quests[n][0];$('quest-text').textContent=quests[n][1];$('quest-feedback').textContent='Your mission is live. You’ve got this!';}
+function completeQuest(){if(activeQuest===null){toast('Reveal a quest first ✨');return}$('quest-feedback').textContent='Quest complete! +1 tiny win ⭐';toast('Tiny win unlocked ⭐')}
+function dailySurprise(){const arr=['You have survived every difficult day so far. That counts. 💜','Your next chapter can start with one small choice. 🌱','Drink water, unclench your jaw, and give yourself a little kindness. 💧','You don’t need to have it all figured out to begin. 🚀','Somewhere, someone is glad you exist. ✨'];toast(arr[Math.floor(Math.random()*arr.length)])}
+function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove('show'),3000)}
+function saveNote(){const val=$('note').value.trim();if(!val){toast('Write a little note first 💌');return}try{localStorage.setItem('moodverse_capsule',val);localStorage.setItem('moodverse_capsule_date',new Date().toLocaleDateString());$('saved-status').textContent='Capsule saved on this device · '+localStorage.getItem('moodverse_capsule_date');toast('Your capsule is saved 💌')}catch(e){$('saved-status').textContent='This browser could not save the note. Keep a copy somewhere safe.'}}
+function loadNote(){try{const val=localStorage.getItem('moodverse_capsule');if(val===null){toast('No saved capsule found yet.');return}$('note').value=val;$('saved-status').textContent='Opened your saved capsule · '+(localStorage.getItem('moodverse_capsule_date')||'date unavailable');toast('Capsule opened ✨')}catch(e){toast('Could not open saved note in this browser.')}}
+function deleteNote(){try{localStorage.removeItem('moodverse_capsule');localStorage.removeItem('moodverse_capsule_date');$('note').value='';$('saved-status').textContent='Saved capsule cleared from this browser.';toast('Capsule cleared')}catch(e){toast('Could not clear saved note.')}}
+</script>
+</body>
+</html>
